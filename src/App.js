@@ -122,7 +122,7 @@ class App extends Component {
     }
   };
 
-  //shows all the logged in users (the token in local storage) in the console
+  //shows all the logged in user tasks (the token in local storage) in the console
   showTasks = e => {
     const tempHeader = new Headers();
     const headerToken = localStorage.token;
@@ -146,6 +146,7 @@ class App extends Component {
     let databody = {
       totalTime: this.state.totalTime
     };
+    console.log(databody)
     fetch("http://localhost:3010/tasks/total/5e788cd1cd51874318e72ba3", {
       headers: tempHeader,
       method: "PATCH",
@@ -208,9 +209,6 @@ class App extends Component {
         <Task input={this.taskInput} submit={this.addTask} />
         <div>
           <button onClick={this.showTasks}>Show Tasks</button>
-        </div>
-        <div>
-          <input></input>
         </div>
         <div>
           <p>Updates the "Kill Ross" total time (hardcoded for testing)</p>
