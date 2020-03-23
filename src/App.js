@@ -11,6 +11,7 @@ class App extends Component {
     loginEmail: "",
     loginPassword: "",
     newTask: "",
+    totalTime:"",
     token: null,
     userTasks: []
   };
@@ -38,6 +39,10 @@ class App extends Component {
 
   taskInput = event => {
     this.setState({ newTask: event.target.value });
+  };
+
+  timeInput = event => {
+    this.setState({ totalTime: event.target.value });
   };
 
   //To add a user to the database
@@ -131,6 +136,26 @@ class App extends Component {
       .then(data => console.log(data));
   };
 
+  //Add total time (hardcorded to add to "Kill Ross" for testing)
+  addTotal = (e) => {
+    const tempHeader = new Headers();
+    const headerToken = localStorage.token;
+    tempHeader.append("Authorization", `${headerToken}`);
+    tempHeader.append("Content-Type", `application/json`);
+    e.preventDefault();
+    let databody = {
+      totalTime: this.state.totalTime
+    };
+    fetch("http://localhost:3010/tasks/5e788cd1cd51874318e72ba3", {
+      headers: tempHeader,
+      method: "PATCH",
+      body: JSON.stringify(databody)
+    })
+      .then(res => res.json())
+      .then(data => console.log(data));
+  };
+  
+
   render() {
     return (
       <div className="app">
@@ -163,6 +188,18 @@ class App extends Component {
         <Task input={this.taskInput} submit={this.addTask} />
         <div>
           <button onClick={this.showTasks}>Show Tasks</button>
+        </div>
+        <div>
+          <input></input>
+        </div>
+        <div>
+          <p>Updates the "Kill Ross" total time (hardcoded for testing)</p>
+        </div>
+        <div>
+          <input type="number" onChange={this.timeInput}></input>
+        </div>
+        <div>
+          <button onClick = {this.addTotal}>Change Total Time</button>
         </div>
       </div>
     );
