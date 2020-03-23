@@ -1,11 +1,14 @@
 import React from "react";
+import TaskList from "./addTask"
+import "./app.css";
 
-const Task = () => {
+
+const Task = (props) => {
   return (
     <div>
-      {localStorage.length > 0 ? (
+      {localStorage.length !== 0 ? (
         <div className="active">
-          <p>Logged in</p>
+          <TaskList input={props.input} submit = {props.submit}/>
         </div>
       ) : (
         <div className="inactive">
