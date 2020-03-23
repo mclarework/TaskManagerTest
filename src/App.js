@@ -91,7 +91,7 @@ class App extends Component {
     }
   };
 
-  //Logs the current user out and removes their toekn from local storage
+  //Logs the current user out and removes their token from local storage
   logout() {
     localStorage.clear();
   }
@@ -117,6 +117,7 @@ class App extends Component {
     }
   };
 
+  //shows all the logged in users (the token in local storage) in the console
   showTasks = e => {
     const tempHeader = new Headers();
     const headerToken = localStorage.token;
