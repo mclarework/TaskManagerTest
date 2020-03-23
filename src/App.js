@@ -58,7 +58,7 @@ class App extends Component {
         email: this.state.email,
         password: this.state.password
       };
-      fetch("http://localhost:3010/users", {
+      fetch("https://whispering-temple-37575.herokuapp.com/users", {
         method: "POST",
         body: JSON.stringify(databody),
         headers: {
@@ -80,7 +80,7 @@ class App extends Component {
         email: this.state.loginEmail,
         password: this.state.loginPassword
       };
-      fetch("http://localhost:3010/users/login", {
+      fetch("https://whispering-temple-37575.herokuapp.com/users/login", {
         method: "POST",
         body: JSON.stringify(databody),
         headers: {
@@ -112,7 +112,7 @@ class App extends Component {
       let databody = {
         task: this.state.newTask
       };
-      fetch("http://localhost:3010/tasks", {
+      fetch("https://whispering-temple-37575.herokuapp.com/tasks", {
         headers: tempHeader,
         method: "POST",
         body: JSON.stringify(databody)
@@ -128,14 +128,13 @@ class App extends Component {
     const headerToken = localStorage.token;
     tempHeader.append("Authorization", `${headerToken}`);
     e.preventDefault();
-    fetch("http://localhost:3010/tasks", {
+    fetch("https://whispering-temple-37575.herokuapp.com/tasks", {
       headers: tempHeader,
       method: "GET"
     })
       .then(res => res.json())
       .then(data => console.log(data));
   };
-
   //Add total time (hardcorded to add to "Kill Ross" for testing)
   addTotal = e => {
     const tempHeader = new Headers();
@@ -147,7 +146,7 @@ class App extends Component {
       totalTime: this.state.totalTime
     };
     console.log(databody)
-    fetch("http://localhost:3010/tasks/total/5e788cd1cd51874318e72ba3", {
+    fetch("https://whispering-temple-37575.herokuapp.com/tasks/total/5e788cd1cd51874318e72ba3", {
       headers: tempHeader,
       method: "PATCH",
       body: JSON.stringify(databody)
@@ -168,7 +167,7 @@ class App extends Component {
       timeRan:60
     };
     console.log(databody)
-    fetch("http://localhost:3010/tasks/instance/5e788cd1cd51874318e72ba3", {
+    fetch("https://whispering-temple-37575.herokuapp.com/tasks/instance/5e788cd1cd51874318e72ba3", {
       headers: tempHeader,
       method: "PATCH",
       body: JSON.stringify(databody)
