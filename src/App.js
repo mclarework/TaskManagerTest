@@ -11,7 +11,7 @@ class App extends Component {
     loginEmail: "",
     loginPassword: "",
     newTask: "",
-    totalTime:"",
+    totalTime: "",
     token: null,
     userTasks: []
   };
@@ -137,7 +137,7 @@ class App extends Component {
   };
 
   //Add total time (hardcorded to add to "Kill Ross" for testing)
-  addTotal = (e) => {
+  addTotal = e => {
     const tempHeader = new Headers();
     const headerToken = localStorage.token;
     tempHeader.append("Authorization", `${headerToken}`);
@@ -146,7 +146,7 @@ class App extends Component {
     let databody = {
       totalTime: this.state.totalTime
     };
-    fetch("http://localhost:3010/tasks/5e788cd1cd51874318e72ba3", {
+    fetch("http://localhost:3010/tasks/total/5e788cd1cd51874318e72ba3", {
       headers: tempHeader,
       method: "PATCH",
       body: JSON.stringify(databody)
@@ -154,7 +154,27 @@ class App extends Component {
       .then(res => res.json())
       .then(data => console.log(data));
   };
-  
+
+  //add instance with timestamp (hardcode to add 60 seconds to "Kill Ross")
+  addInstance = (e) => {
+    const tempHeader = new Headers();
+    const headerToken = localStorage.token;
+    tempHeader.append("Authorization", `${headerToken}`);
+    tempHeader.append("Content-Type", `application/json`);
+    e.preventDefault();
+    let databody = {
+      timeStarted: new Date(),
+      timeRan:60
+    };
+    console.log(databody)
+    fetch("http://localhost:3010/tasks/instance/5e788cd1cd51874318e72ba3", {
+      headers: tempHeader,
+      method: "PATCH",
+      body: JSON.stringify(databody)
+    })
+      .then(res => res.json())
+      .then(data => console.log(data));
+  };
 
   render() {
     return (
@@ -199,7 +219,16 @@ class App extends Component {
           <input type="number" onChange={this.timeInput}></input>
         </div>
         <div>
-          <button onClick = {this.addTotal}>Change Total Time</button>
+          <button onClick={this.addTotal}>Change Total Time</button>
+        </div>
+        <div>
+          <p>
+            Add timestamped instance of 1 minute to "Kill Ross" task (hardcoded
+            for testing)
+          </p>
+        </div>
+        <div>
+          <button onClick={this.addInstance}>Add Instance</button>
         </div>
       </div>
     );
